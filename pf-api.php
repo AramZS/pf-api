@@ -31,7 +31,7 @@ class MyPlugin_API_MyType {
 			array( array( $this, 'new_item'), WP_JSON_Server::CREATABLE | WP_JSON_Server::ACCEPT_JSON ),
 		);
 		$routes['/pressforward/meta'] = array(
-			array( array( $this, 'nominated'), WP_JSON_Server::READABLE )
+			array( array( $this, 'pf_metas'), WP_JSON_Server::READABLE )
 		);
 		$routes['/pressforward/nomination/(?P<id>\d+)'] = array(
 			array( array( $this, 'get_post'), WP_JSON_Server::READABLE ),
@@ -73,8 +73,8 @@ class MyPlugin_API_MyType {
 		return array( 'result' => 'bob' );
 	}
 
-	public function item_id(){
-		return array( 'result' => get_post_meta( get_the_ID(), 'item_id' ) );
+	public function item_id( $id ){
+		return array( 'result' => get_post_meta( $id, 'origin_item_ID' ) );
 	}
 
 	public function meta(){
