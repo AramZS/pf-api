@@ -68,6 +68,15 @@ class MyPlugin_API_MyType {
 
 		return $routes;
 	}
+	/**
+	 * [get_meta_for_api description]
+	 * @param  [type] $id        [description]
+	 * @param  [type] $meta_name __FUNCTION__
+	 * @return [type]            [description]
+	 */
+	public function get_meta_for_api($id, $meta_name){
+		$value = get_post_meta( $id, $meta_name );
+	}
 
 	public function data(){
 		return array( 'result' => 'bob' );
@@ -83,5 +92,7 @@ class MyPlugin_API_MyType {
 
 	// ...
 }
+
+# extend WP_JSON_CustomPostType
 
 new PF_API;
