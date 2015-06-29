@@ -27,7 +27,7 @@ class PF_API {
 class MyPlugin_API_MyType {
 
 	public function register_routes( $routes ) {
-		$routes['/pressforward/'] = array(
+		$routes['/pressforward'] = array(
 			array( array( $this, 'new_item'), WP_JSON_Server::CREATABLE | WP_JSON_Server::ACCEPT_JSON ),
 		);
 		$routes['/pressforward/meta'] = array(
@@ -75,7 +75,8 @@ class MyPlugin_API_MyType {
 	 * @return [type]            [description]
 	 */
 	public function get_meta_for_api($id, $meta_name){
-		$value = get_post_meta( $id, $meta_name );
+		$value = pf_get_post_meta( $id, $meta_name );
+		return $value;
 	}
 
 	public function data(){
@@ -83,11 +84,11 @@ class MyPlugin_API_MyType {
 	}
 
 	public function item_id( $id ){
-		return array( 'result' => get_post_meta( $id, 'origin_item_ID' ) );
+		return array( 'result' => $this->get_meta_for_api( $id, 'origin_item_ID' ) );
 	}
 
-	public function meta(){
-		return array( 'result' => 'meta' );
+	public function pf_metas(){
+		return array( 'result' => pf_meta_structure() );
 	}
 
 	// ...
